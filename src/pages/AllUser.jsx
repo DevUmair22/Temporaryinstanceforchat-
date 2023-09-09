@@ -269,27 +269,15 @@ export default function AllUser() {
 	return (
 		<div
 			style={{ background: '#F4F4F5' }}
-			className="h-full py-2 flex flex-wrap"
+			className="h-full pt-2 flex flex-wrap"
 		>
 			<div className="flex justify-center px-10 w-full flex-wrap h-1/6 ">
 				{/* ... Widgets ... */}
-				<Widget
-					className="bg-white w-1/4 shadow-lg mx-auto  "
-					label="Total Accounts"
-					count={data.length}
-				/>
-				<Widget
-					className="bg-white w-1/4 shadow-lg mx-auto  "
-					label="Active Accounts"
-					count={activeAccounts.length}
-				/>
-				<Widget
-					className="bg-white w-1/4 shadow-lg mx-auto  "
-					label="Inactive Accounts"
-					count={inActiveAccounts.length}
-				/>
+				<Widget label="Total Accounts" count={data.length} />
+				<Widget label="Active Accounts" count={activeAccounts.length} />
+				<Widget label="Inactive Accounts" count={inActiveAccounts.length} />
 			</div>
-			<div className="w-full rounded-lg bg-white shadow-lg h-5/6 px-4 py-1 flex flex-col flex-wrap">
+			<div className="w-full bg-white shadow-lg h-5/6 px-4 py-1 flex flex-col flex-wrap">
 				<div className="justify-between w-full flex h-1/6 items-center flex-wrap">
 					<h1 className="text-xl w-3/4 font-bold mx-auto">All Users</h1>
 

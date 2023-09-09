@@ -6,7 +6,7 @@ import {
 	RiNotification2Line,
 } from 'react-icons/ri'
 import './header.css'
-export default function Header() {
+export default function Header(props) {
 	const [profilePicture, setProfilePicture] = useState(null)
 
 	const [adminName, setAdminName] = useState('ijlal shah')
@@ -54,7 +54,7 @@ export default function Header() {
 	}
 
 	return (
-		<div className="bg-white h-full w-full px-2 flex flex-wrap justify-around shadow-xl border">
+		<div className="bg-white h-full w-full px-2 flex flex-wrap justify-around rounded-tr-xl shadow-xl border">
 			<div className="flex items-center w-2/4 py-6 justify-center">
 				<div className=" flex items-center w-full border-gray-300 border shadow-md border-1 rounded-md bg-gray-100 h-full w-3/4">
 					<IoIosSearch className="text-sky-600 h-full text-center w-1/6 bg-gray-200 px-3 " />
@@ -83,12 +83,12 @@ export default function Header() {
 							<div className="w-2/6 py-1 pl-2">
 								<img
 									className=" rounded-full  "
-									src={profilePicture}
+									src={props.admin.picture}
 									alt="profile"
 								/>
 							</div>
 							<span className="w-3/6 text-md font-medium pl-3">
-								{adminName}
+								{props.admin.name}
 							</span>
 							<div className="h-full w-1/6 py-3 ">
 								<RiArrowDownSLine
