@@ -1,161 +1,140 @@
-import React, { useState } from 'react';
-import { RiNotification2Line, RiMessage2Line, RiAdminLine, RiArrowDownSLine } from 'react-icons/ri';
-import { IoIosSearch } from 'react-icons/io';
+import React, { useState } from 'react'
+import { IoIosSearch } from 'react-icons/io'
+import {
+	RiArrowDownSLine,
+	RiMessage2Line,
+	RiNotification2Line,
+} from 'react-icons/ri'
 import './header.css'
 export default function Header() {
-    const [profilePicture, setProfilePicture] = useState(null);
+	const [profilePicture, setProfilePicture] = useState(null)
 
-    const [adminName, setAdminName] = useState('ijlal shah');
-    const [showDropdown, setShowDropdown] = useState(false);
-    const [myreviewDropdown, setMyreviewDropdown] = useState(false);
-    const [settingsDropdown, setSettingsDropdown] = useState(false);
-    const [logoutDropdown, setLogoutDropdown] = useState(false);
+	const [adminName, setAdminName] = useState('ijlal shah')
+	const [showDropdown, setShowDropdown] = useState(false)
+	const [myreviewDropdown, setMyreviewDropdown] = useState(false)
+	const [settingsDropdown, setSettingsDropdown] = useState(false)
+	const [logoutDropdown, setLogoutDropdown] = useState(false)
 
-    const [notificationDropdown, setNotificationDropdown] = useState(false);
+	const [notificationDropdown, setNotificationDropdown] = useState(false)
 
-    const [showProfileDropdown, setShowProfileDropdown] = useState(false);
+	const [showProfileDropdown, setShowProfileDropdown] = useState(false)
 
-    const toggleDropdown = () => {
-        setShowDropdown(!showDropdown);
-    };
+	const toggleDropdown = () => {
+		setShowDropdown(!showDropdown)
+	}
 
-    const toggleProfileDropdown = () => {
-        setShowProfileDropdown(!showProfileDropdown);
-    };
-    const NotificationDropdown = () => {
-        setNotificationDropdown(!NotificationDropdown);
-    };
-    const MyreviewDropdown = () => {
-        setMyreviewDropdown(!MyreviewDropdown);
-    };
-    const SettingsDropdown = () => {
-        setSettingsDropdown(!SettingsDropdown);
-    };
-    const LogoutDropdown = () => {
-        setLogoutDropdown(!LogoutDropdown);
-    };
+	const toggleProfileDropdown = () => {
+		setShowProfileDropdown(!showProfileDropdown)
+	}
+	const NotificationDropdown = () => {
+		setNotificationDropdown(!NotificationDropdown)
+	}
+	const MyreviewDropdown = () => {
+		setMyreviewDropdown(!MyreviewDropdown)
+	}
+	const SettingsDropdown = () => {
+		setSettingsDropdown(!SettingsDropdown)
+	}
+	const LogoutDropdown = () => {
+		setLogoutDropdown(!LogoutDropdown)
+	}
 
-    const handleAdminNameChange = () => {
-        const newName = prompt('Enter new admin name:');
-        if (newName) {
-            setAdminName(newName);
-        }
-    };
-    const handleProfilePictureChange = (event) => {
-        const selectedFile = event.target.files[0];
-        if (selectedFile) {
-            const imageUrl = URL.createObjectURL(selectedFile);
-            setProfilePicture(imageUrl);
-        }
-    };
+	const handleAdminNameChange = () => {
+		const newName = prompt('Enter new admin name:')
+		if (newName) {
+			setAdminName(newName)
+		}
+	}
+	const handleProfilePictureChange = (event) => {
+		const selectedFile = event.target.files[0]
+		if (selectedFile) {
+			const imageUrl = URL.createObjectURL(selectedFile)
+			setProfilePicture(imageUrl)
+		}
+	}
 
-    return (
-        <div style={{ background: 'white', }} className='h-18 w-full p-4 mr-4 mt-0 flex justify-around'>
-            <div className='flex justify-around w-full' >
+	return (
+		<div className="bg-white h-full w-full px-2 flex flex-wrap justify-around shadow-xl border">
+			<div className="flex items-center w-2/4 py-6 justify-center">
+				<div className=" flex items-center w-full border-gray-300 border shadow-md border-1 rounded-md bg-gray-100 h-full w-3/4">
+					<IoIosSearch className="text-sky-600 h-full text-center w-1/6 bg-gray-200 px-3 " />
+					<input
+						type="text"
+						className="border-none h-full text-gray-800 focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 bg-gray-50 pl-4 m-0 placeholder:text-gray-500 w-5/6 "
+						placeholder="Search"
+					/>
+				</div>
+			</div>
+			<div className="flex items-center w-2/4 py-3 justify-center px-3">
+				<div className="flex flex-wrap w-4/6 justify-end px-4">
+					<div className="px-2">
+						<RiNotification2Line className="text-gray-500 h-6 w-6  " />
+					</div>
+					<div className="px-2">
+						<RiMessage2Line className="text-gray-500 h-6 w-6" />
+					</div>
+				</div>
+				<div className=" w-2/6">
+					<div className="relative  flex justify-end">
+						<div
+							className="flex flex-wrap items-center cursor-pointer border rounded-md w-full bg-gray-50 shadow-md"
+							onClick={toggleDropdown}
+						>
+							<div className="w-2/6 py-1 pl-2">
+								<img
+									className=" rounded-full  "
+									src={profilePicture}
+									alt="profile"
+								/>
+							</div>
+							<span className="w-3/6 text-md font-medium pl-3">
+								{adminName}
+							</span>
+							<div className="h-full w-1/6 py-3 ">
+								<RiArrowDownSLine
+									onClick={toggleDropdown}
+									className="text-gray-500 text-xl cursor-pointer"
+								/>
+							</div>
+						</div>
+					</div>
+					{showDropdown && (
+						<div className="absolute bg-white border rounded-lg p-4 text-md w-40 divide-y">
+							<div
+								className="py-1 cursor-pointer"
+								onClick={toggleProfileDropdown}
+							>
+								My Profile
+							</div>
+							<div
+								className=" py-1 cursor-pointer"
+								onClick={NotificationDropdown}
+							>
+								Notification
+							</div>
+							<div className="py-1 cursor-pointer" onClick={MyreviewDropdown}>
+								My Review
+							</div>
+							<div className="py-1 cursor-pointer" onClick={SettingsDropdown}>
+								Settings
+							</div>
+							<div className=" py-1 cursor-pointer" onClick={LogoutDropdown}>
+								Logout
+							</div>
+							{showProfileDropdown && (
+								<div>{/* Profile dropdown content */}</div>
+							)}
+							{notificationDropdown && (
+								<div>{/* Profile dropdown content */}</div>
+							)}
 
-                <div className='flex items-center w-5/6 '>
-                    <div style={{ background: '#FAFAFA', border: '#FAFAFA' }} className=' border-none flex items-center  mr-2 pl-8 rounded-md  w-5/6'>
-                        <IoIosSearch className='text-gray-500 h-6 w-6' />
-                        <input style={{ background: '#FAFAFA', border: 'none' }} type='text' className='border-none h-8 pl-4 m-0 rounded-full border-#FAFAFA w-5/6' placeholder='Search' />
-                    </div>
-                </div>
-                <div className='flex items-center border w-2/3 justify-center  flex'>
-                    <div className='flex mr-32 border '>
-                        <div className='mr-4'>
-                            <RiNotification2Line className='text-gray-500 h-6 w-16 ' />
-                        </div>
-                        <div className='mr-4'>
-                            <RiMessage2Line className='text-gray-500 h-6 w-16' />
-                        </div>
-                    </div>
-                    <div className='border w-1/2 '>
-                        <div className='relative  flex'>
-                            <div className='flex items-center cursor-pointer' onClick={toggleDropdown}>
-                                <label htmlFor='profile-picture-input'>
-                                    {profilePicture ? (
-                                        <img src={profilePicture} alt='Profile' className='rounded-full h-6 w-16 my-2 cursor-pointer' />
-                                    ) : (
-                                        <div className='rounded-full h-8 w-8 m-2 my-2 bg-gray-300 flex items-center justify-center cursor-pointer'>
-                                            {/* profile Picture */}
-                                        </div>
-                                    )}
-                                </label>
-                                <input
-                                    type='file'
-                                    id='profile-picture-input'
-                                    accept='image/*'
-                                    onChange={handleProfilePictureChange}
-                                    style={{ display: 'none' }}
-                                />
-                                <span className='ml-2 text-sm font-medium flex'>{adminName}</span>
-                                <RiArrowDownSLine onClick={toggleDropdown} className='text-gray-500 h-4 w-5 ml-1 ml-32 border cursor-pointer' />
-                            </div>
-                        </div>
-                        {showDropdown && (
-                            <div className='absolute bg-white border rounded-lg mt-1 p-2'>
-                                <div onClick={handleAdminNameChange} className='cursor-pointer'>
-                                    Change Admin Name
-                                </div>
-                                <div className='cursor-pointer' onClick={toggleProfileDropdown}>
-                                    My Profile
-                                </div>
-                                <div className='cursor-pointer' onClick={NotificationDropdown}>
-                                    Notification
-
-                                </div>
-                                <div className='cursor-pointer' onClick={MyreviewDropdown}>
-                                    My Review
-
-                                </div>
-                                <div className='cursor-pointer' onClick={SettingsDropdown}>
-                                    Settings
-
-                                </div>
-                                <div className='cursor-pointer' onClick={LogoutDropdown}>
-                                    Logout
-
-                                </div>
-                                {showProfileDropdown && (
-                                    <div>
-                                        {/* Profile dropdown content */}
-                                    </div>
-                                )}
-                                {notificationDropdown && (
-                                    <div >
-                                        {/* Profile dropdown content */}
-
-
-                                    </div>
-                                )}
-
-                                {myreviewDropdown && (
-                                    <div>
-                                        {/* Profile dropdown content */}
-
-
-                                    </div>
-                                )}
-                                {settingsDropdown && (
-                                    <div>
-                                        {/* Profile dropdown content */}
-
-
-                                    </div>
-                                )}
-                                {logoutDropdown && (
-                                    <div>
-                                        {/* Profile dropdown content */}
-
-
-                                    </div>
-                                )}
-
-
-                            </div>
-                        )}
-                    </div>
-                </div>
-            </div>
-        </div>
-    );
+							{myreviewDropdown && <div>{/* Profile dropdown content */}</div>}
+							{settingsDropdown && <div>{/* Profile dropdown content */}</div>}
+							{logoutDropdown && <div>{/* Profile dropdown content */}</div>}
+						</div>
+					)}
+				</div>
+			</div>
+		</div>
+	)
 }
