@@ -62,7 +62,7 @@ export default function Sidebar() {
 					onMouseEnter={() => handleIconHover('supervisor')}
 					onMouseLeave={() => handleIconHover(null)}
 				>
-					<Link className="flex items-center " to={'/'}>
+					<Link className="flex items-center " to={'/home'}>
 						<MdSupervisorAccount className="text-xl text-white" />
 						<p className="text-xl text-white px-2  pt-1">Manage Users</p>
 					</Link>

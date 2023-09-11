@@ -69,7 +69,7 @@ export default function AllUser() {
 
 				let config = {
 					method: 'delete',
-					url: 'http://172.20.17.81:8000/core/user/',
+					url: `http://${endPoint}:8000/core/user/`,
 					headers: {
 						'Content-Type': 'application/json',
 					},
@@ -100,7 +100,7 @@ export default function AllUser() {
 
 		try {
 			const response = await axios.post(
-				'http://172.20.17.81:8000/core/password/reset/request/',
+				`http://${endPoint}:8000/core/password/reset/request/`,
 
 				{
 					email,
@@ -181,7 +181,7 @@ export default function AllUser() {
 			let requestData = JSON.stringify(updatedUser)
 			let config = {
 				method: 'PUT',
-				url: `http://172.20.17.81:8000/core/user/${user.id}/`,
+				url: `http://${endPoint}:8000/core/user/${user.id}/`,
 
 				headers: {
 					'Content-Type': 'application/json',
@@ -223,7 +223,7 @@ export default function AllUser() {
 
 			let config = {
 				method: 'PUT',
-				url: `http://172.20.17.81:8000/core/user/${user.id}/`,
+				url: `http://${endPoint}:8000/core/user/${user.id}/`,
 
 				headers: {
 					'Content-Type': 'application/json',
