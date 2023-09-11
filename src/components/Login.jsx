@@ -1,80 +1,51 @@
+import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
-import axios from 'axios'
-// import { useHistory } from "react-router-dom";
-// import { Redirect } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom' // Import useNavigate
-
-// import {  Redirect } from 'react-router-dom'; // Import Router and other components
-
-import Vactor from '../assets/vactor.png'
 import './App.css'
 function Login() {
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
 	const [showPassword, setShowPassword] = useState(false)
 	const [status, setStatus] = useState('')
-	const [admin, setAdmin] = useState('false')
-	const [profilePicture, setProfilePicture] = useState(null)
-	const [loggedIn, setLoggedIn] = useState(false)
 	const [rememberMe, setRememberMe] = useState(false)
 	const [invalidPasswordError, setInvalidPasswordError] = useState(false)
-	const [errorMessages, setErrorMessages] = useState({})
-	const [isSubmitted, setIsSubmitted] = useState(false)
-	const navigate = useNavigate() // Get the navigate function from the hook
-	// State for login status
 
-	// const [loggedIn, setLoggedIn] = useState(false); // New state for login status
-
-	// const Dashbord = () => {
-	//     history.push("/dashbord")
-	// }
-	// const renderErrorMessage = (name) =>
-	//     name === errorMessages.name && (
-	//         <div className="error">{errorMessages.message}</div>
-	//     );
 	const handleRememberMeChange = () => {
 		setRememberMe(!rememberMe)
 	}
-
+	const endPoint = process.env.REACT_APP_BASE_URL
 	const handleLogin = async () => {
 		try {
-			const response = await axios.post(
-				'http://192.168.38.224:8000/core/login/',
-				{
-					//env file url
-					email,
-					password, // const history = useHistory();
-				}
-			)
-			const user = response.data
+			const response = await axios.post(`http://${endPoint}:8000/core/login/`, {
+				//env file url
+				email,
+				password,
+			})
+
 			if (response.status === 200) {
-				// console.log("first,", response)
-				console.log('check token', response)
-				// window.location.href = '/Dashboard';
+				const user = response.data
+				console.log('@@@@@@@@@@@', response.data)
 				setStatus('Login successful!')
 				localStorage.setItem('user-token', response.data.jwt)
-				// localStorage.removeItem('user-token', response.data.jwt);
-				if (user && user.isAdmin === true) {
-					setTimeout(() => {
-						navigate('/home', {
-							state: { admin: user },
-						})
-					}, 500)
-				} else {
-					setTimeout(() => {
-						window.location.href = '/Dashboard'
-					}, 500)
-				}
+				localStorage.setItem('is_admin', response.data.is_adamin)
+
+				localStorage.setItem('user', JSON.stringify(user))
+				// if (user && user.isAdmin === true) {
+				// 	setTimeout(() => {
+				// 		navigate('/home', {
+				// 			state: { admin: user },
+				// 		})
+				// 	}, 500)
+				// } else {
+				setTimeout(() => {
+					window.location.href = '/Dashboard'
+				}, 500)
+
 				if (rememberMe) {
 					localStorage.setItem('rememberedEmail', email)
 					localStorage.setItem('rememberedPassword', password)
-					//   localStorage.checkbox = isChecked;
 				}
-				// navigate('/dashbord');
-
-				// history.push('/dashbord');
 			} else {
 				setStatus('AddUser failed. Please check your credentials.')
 			}
@@ -102,63 +73,22 @@ function Login() {
 	useEffect(() => {
 		const rememberedEmail = localStorage.getItem('rememberedEmail')
 		const rememberedPassword = localStorage.getItem('rememberedPassword')
-		// useEffect(() => {
-		// const timeout = setTimeout(() => {
-		//     // 👇️ redirects to an external URL
-		//     window.location.replace('http://localhost:3000/Dashbord');
-		// }, 1000);
-
-		//     return () => clearTimeout(timeout);
-		//   }, []);
-		// const rememberedEmail = localStorage.removeItemItem('rememberedEmail');
-		// const rememberedPassword = localStorage.removeItem('rememberedPassword');
 
 		if (rememberedEmail && rememberedPassword) {
 			setEmail(rememberedEmail)
 			setPassword(rememberedPassword)
-			setRememberMe(true) // Check the "Remember Me" checkbox
+			setRememberMe(true)
 		}
 	}, [])
-	// if (loggedIn) {error.response.data.detail
-	//     return <Redirect to="/dashboard" />; // Redirect after successful login
-	//   }
-
-	const handleProfilePictureClick = () => {
-		const input = document.getElementById('profile-picture')
-		if (input) {
-			input.click()
-		}
-	}
-
-	const handleProfilePictureChange = (selectedFile) => {
-		if (selectedFile) {
-			const imageUrl = URL.createObjectURL(selectedFile)
-			setProfilePicture(imageUrl)
-		}
-	}
-	let bg = { Vactor }
 
 	return (
-		// <div className="cover-container" style={{
-		//     backgroundImage: `url("${Vactor}")`,
-		//     height: "300px", backgroundRepeat: "no-repeat"
-		// }} >
 		<div className="login-wrapper">
 			<div className="cover-container">
 				<div className="App.login">
 					<div className="login-container">
-						{/* <div className="profile-icon">
-                            <i className="fas fa-user-circle fa-lg"></i>
-                        </div> */}
 						<div className="login-icon-container ">
 							<i className="fas fa-user-circle fa-lg cursor-pointer rounded-full h-16 w-16 cursor-pointer"></i>
-							{/* <div className="profile-icon login-image-icon" onClick={handleProfilePictureClick}>
-                                {profilePicture ? (
-                                    <img src={profilePicture} alt="Profile" className="rounded-full h-16 w-16 cursor-pointer" />
-                                ) : (
-                                    <i className="fas fa-user-circle fa-lg cursor-pointer"></i>
-                                )}
-                            </div> */}
+
 							<h2 className="login">Login</h2>
 						</div>
 						<div className="input-fields">
@@ -172,7 +102,6 @@ function Login() {
 									onChange={(e) => setEmail(e.target.value)}
 									placeholder="Username"
 								/>
-								{/* {renderErrorMessage("email")} */}
 							</div>
 
 							<br />
@@ -191,7 +120,6 @@ function Login() {
 									}`}
 									onClick={() => setShowPassword(!showPassword)}
 								></i>
-								{/* {renderErrorMessage("pass")} */}
 							</div>
 							<div className="text-start pt-10 flex items-center">
 								<input
@@ -202,7 +130,11 @@ function Login() {
 								/>
 								<label for="RememberMe">Remember Me</label>
 							</div>
-							<button class="login-button" onClick={handleLogin}>
+
+							<button
+								className="bg-blue-600 scale-100 active:scale-90 focus:scale-90 focus:bg-blue-500 text-white text-xl font-medium"
+								onClick={handleLogin}
+							>
 								Login
 							</button>
 							<div className="w-4"></div>
@@ -212,18 +144,9 @@ function Login() {
 							{invalidPasswordError && (
 								<p className="error-message">Invalid password.</p>
 							)}
-
-							<input
-								type="file"
-								id="profile-picture"
-								accept="image/*"
-								onChange={(e) => handleProfilePictureChange(e.target.files[0])}
-								style={{ display: 'none' }}
-							/>
 						</div>
 					</div>
 				</div>
-				{/* {loggedIn && <Redirect to="/dashboard" />} Redirect after successful login */}
 			</div>
 		</div>
 	)

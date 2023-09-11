@@ -24,6 +24,7 @@ function Dashboard() {
 							<div className="w-10/12 h-full flex justify-center items-center text-5xl font-bold text-gray-400 ">
 								<p>DashBoard</p>
 							</div>
+							<Link to="/logout">Logout</Link>
 							<div className="w-2/12 flex flex-wrap h-full">
 								<Rightblock />
 							</div>
@@ -32,7 +33,6 @@ function Dashboard() {
 				</div>
 			</div>
 			{/* Your dashboard content */}
-			<Link to="/logout">Logout</Link>
 		</div>
 	)
 }

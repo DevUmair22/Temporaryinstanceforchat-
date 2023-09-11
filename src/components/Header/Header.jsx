@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { IoIosSearch } from 'react-icons/io'
 import {
 	RiArrowDownSLine,
@@ -8,7 +8,7 @@ import {
 import './header.css'
 export default function Header(props) {
 	const [profilePicture, setProfilePicture] = useState(null)
-
+	const [currentUser, setCurrentUser] = useState('User')
 	const [adminName, setAdminName] = useState('ijlal shah')
 	const [showDropdown, setShowDropdown] = useState(false)
 	const [myreviewDropdown, setMyreviewDropdown] = useState(false)
@@ -18,7 +18,15 @@ export default function Header(props) {
 	const [notificationDropdown, setNotificationDropdown] = useState(false)
 
 	const [showProfileDropdown, setShowProfileDropdown] = useState(false)
+	useEffect(() => {
+		const user = localStorage.getItem('user')
 
+		console.log('========>', JSON.parse(user))
+
+		console.log('first', user)
+
+		if (user) setCurrentUser(JSON.parse(user))
+	}, [])
 	const toggleDropdown = () => {
 		setShowDropdown(!showDropdown)
 	}
@@ -83,13 +91,12 @@ export default function Header(props) {
 							<div className="w-2/6 py-1 pl-2">
 								<img
 									className=" rounded-full  "
-									// src=
-									// {props.admin.picture}
+									src={currentUser?.profilePicture}
 									alt="profile"
 								/>
 							</div>
 							<span className="w-3/6 text-md font-medium pl-3">
-								{/* {props.admin.name} */}
+								{currentUser?.name}
 							</span>
 							<div className="h-full w-1/6 py-3 ">
 								<RiArrowDownSLine

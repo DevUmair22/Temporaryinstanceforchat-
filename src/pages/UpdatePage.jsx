@@ -7,12 +7,11 @@ import UpdateUser from './Updateuser'
 const UpdatePage = (props) => {
 	const location = useLocation()
 	console.log('location', location)
-	const user = location.state.user
-	console.log(' userrrrr', user.is_admin)
-
+	// const user = location.state.user
+	// console.log(' userrrrr', user.is_admin)
+	// console.log(user)
 	return (
-		console.log(user),
-		(
+		<div className="home flex">
 			<div className=" flex flex-wrap bg-white rounded-xl h-full w-full">
 				<div className=" w-2/12">
 					<Sidbar />
@@ -31,7 +30,7 @@ const UpdatePage = (props) => {
 					</div>
 				</div>
 			</div>
-		)
+		</div>
 	)
 }
 

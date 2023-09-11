@@ -11,12 +11,6 @@ export default function Home() {
 	// console.log('admin', admin)
 	return (
 		<div className="home border flex">
-			{/* <div style={{ width: '1300px' }} className='  bg-gray-200'> */}
-			{/* <div>
-                    <Header />
-                </div> */}
-			{/* <div className='flex'> */}
-
 			<div className=" flex flex-wrap bg-white rounded-xl h-full w-full">
 				<div className=" w-2/12">
 					<Sidbar />

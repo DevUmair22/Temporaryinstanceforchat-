@@ -8,14 +8,17 @@ function AddUsers() {
     const endPoint = process.env.REACT_APP_BASE_URL
     const [email, setEmail] = useState('');
     const [phone_number, setPhone_number] = useState('');
+    const [isActive, setIsActive] = useState("true")
+    const [picture, setPicture] = useState("null")
     const [department, setDepartment] = useState('');
     const [password, setPassword] = useState('');
     const [status, setStatus] = useState('');
     const [added, setAdded] = useState("false")
     const [showDropdown, setShowDropdown] = useState(false);
-    const [invalidNameError, setInvalidNameError] = useState(false); // New state for invalid name
-    const [departments, setDepartments] = useState(['Sales', 'Technical', 'Marketing', 'Finance']); // Sample departments Sales, Technical, Marketing, and Finance.
-
+    const [invalidNameError, setInvalidNameError] = useState(false);
+    const departments = [
+        'Sales', 'Technical', 'Marketing', 'Finance'
+    ]
 
     const toggleDropdown = () => {
         setShowDropdown(!showDropdown);
@@ -24,7 +27,7 @@ function AddUsers() {
     const navigate = useNavigate(); // Get the navigate function from the hook
 
     const handleRegistration = async () => {
-
+        console.log("daaaata", name, email, phone_number, department, password)
         if (!name || !email || !phone_number || !department || !password) {
             setStatus('All fields are required.');
             return;
@@ -50,7 +53,8 @@ function AddUsers() {
                 name,
                 email,
                 phone_number,
-                department,
+                department, picture,
+                isActive,
                 password
             });
 
@@ -190,15 +194,15 @@ function AddUsers() {
                     </div>
                     <div className="input-container">
                         <select className="bg-blue-50 border border-blue-500  text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+                            onChange={(e) => setDepartment(e.target.value)}
                         >
                             <option selected>Choose a department</option>
                             {departments.map((dept, index) => (
-                                <option value={dept} onClick={() => {
-                                    setDepartment(dept)
-                                }} key={index}>{dept}</option>
+                                <option key={index} value={dept} >{dept}</option>
+
                             ))}
 
-
+                            {console.log("department", department)}
                         </select>
 
                     </div>
