@@ -1,11 +1,12 @@
 import axios from 'axios'
 import React, { useEffect, useMemo, useState } from 'react'
 import { BiSolidLock } from 'react-icons/bi'
-import { FaEdit, FaTrash } from 'react-icons/fa'
+import { BsTrash3Fill } from 'react-icons/bs'
+import { FaEdit } from 'react-icons/fa'
 import { HiOutlineLockOpen } from 'react-icons/hi'
 import { IoMdKey } from 'react-icons/io'
 import ReactPaginate from 'react-paginate'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 import Widget from './widget'
 
@@ -20,6 +21,8 @@ const departmentOptions = [
 ]
 
 export default function AllUser() {
+	const endPoint = process.env.REACT_APP_BASE_URL
+	console.log('environment', endPoint)
 	const [data, setData] = useState([])
 	const [lockedId, setLockedId] = useState(null)
 	const [currentPage, setCurrentPage] = useState(0)
@@ -35,7 +38,7 @@ export default function AllUser() {
 
 	const fetchData = async () => {
 		try {
-			const response = await axios.get('http://172.20.17.81:8000/core/user/')
+			const response = await axios.get(`http://${endPoint}:8000/core/user/`)
 			setData(response.data.data)
 			console.log('firstttttt', data)
 		} catch (error) {
@@ -43,6 +46,7 @@ export default function AllUser() {
 		}
 	}
 	console.log('data fetched', data)
+	const sortedData = data.reverse()
 	const toggleOptions = (index) => {
 		setExpandedRowIndex(index)
 		setShowOptions(true)
@@ -282,28 +286,30 @@ export default function AllUser() {
 					<h1 className="text-xl w-3/4 font-bold mx-auto">All Users</h1>
 
 					<div className="w-1/4 px-3">
-						<button
-							type="button"
-							className="mx-auto m-0 w-full h-8 text-sm text-white bg-sky-600 px-2 font-medium py-1"
-							onClick={handleClick}
-						>
-							+ Add User
-						</button>
+						<Link to="/user">
+							<button
+								type="button"
+								className="mx-auto m-0 w-full h-8 text-sm text-white bg-sky-600 px-2 font-medium py-1"
+								onClick={handleClick}
+							>
+								+ Add User
+							</button>
+						</Link>
 					</div>
 				</div>
-				<table className="text-center mt-1 text-white font-medium w-full border-collapse h-4/6">
+				<table className="text-center text-white font-medium w-full border-collapse h-4/6">
 					<thead className="bg-[#3E97CF] h-10">
 						<tr className=" border rounded-lg h-full ">
 							<th className="border px-4">Name</th>
 							<th className="border px-4">Email</th>
-							<th className="border px-4">Phoneno</th>
+							<th className="border px-4">Contact no</th>
 
 							<th className="border px-4">Department</th>
-							<th className="border px-4">Details</th>
+							<th className="border px-4">Actions</th>
 						</tr>
 					</thead>
-					<tbody>
-						{data
+					<tbody className="text-gray-700">
+						{sortedData
 							.slice(
 								currentPage * itemsPerPage,
 								(currentPage + 1) * itemsPerPage
@@ -331,97 +337,97 @@ export default function AllUser() {
 												))}
 											</select>
 										</td>
-										<td className=" pl-8 justify-center py-2 flex">
+										<td className=" justify-center py-2 flex flex-wrap">
 											{/* <Link to={`/update/${val}`} className='cursor-pointer'>
                                             <FaEdit className='cursor-pointer' />
                                         </Link> */}
 											<IoMdKey
-												className="mx-2 cursor-pointer"
+												className="mx-1 cursor-pointer hover:scale-110"
 												onClick={() => handlePasswordReset(val)}
 											/>
 											<FaEdit
 												onClick={() => handleUpdate(val)}
-												className="cursor-pointer text-red-500"
+												className="cursor-pointer mx-1 hover:scale-110 text-blue-500"
 											/>
 											{val.is_active ? (
 												<HiOutlineLockOpen
 													onClick={() => handleLockToggle(val)}
-													className="cursor-pointer text-red-500"
+													className="cursor-pointer mx-1 hover:scale-110 text-green-700"
 												/>
 											) : (
 												<BiSolidLock
 													onClick={() => handleLockToggle(val)}
-													className="cursor-pointer"
+													className="cursor-pointer mx-1 hover:scale-110 text-red-500"
 												/>
 											)}
-											<FaTrash
+											<BsTrash3Fill
 												onClick={() => handleDelete(val)}
-												className="cursor-pointer mx-2"
+												className="cursor-pointer mx-1 hover:scale-110 text-red-500"
 											/>
 										</td>
 									</tr>
-									{expandedRowIndex === index && (
-										<tr key={`${index}-edit`} className="border ">
-											<td colSpan="2" className="border pl-5 py-1">
-												<input
-													type="text"
-													value={val.name}
-													onChange={(e) =>
-														handleNameChange(e.target.value, index)
-													}
-												/>
-											</td>
-											<td colSpan="2" className="border pl-5 py-1">
-												<input
-													type="text"
-													value={val.email}
-													onChange={(e) =>
-														handleEmailChange(e.target.value, index)
-													}
-												/>
-											</td>
-											<td colSpan="2" className="border pl-5 py-1">
-												<input
-													type="text"
-													value={val.phone_number}
-													onChange={(e) =>
-														handlePhonenoChange(e.target.value, index)
-													}
-												/>
-											</td>
-											<td className="pl-8 justify-center py-2 flex">
-												<button
-													onClick={() => handleUpdate(val.id, index)}
-													className="bg-blue-500 text-white px-4 py-1 rounded"
-												>
-													Update
-												</button>
-												<button
-													onClick={() => handleDelete(val.email)}
-													className="bg-red-500 text-white px-4 py-1 rounded"
-												>
-													Delete
-												</button>
-											</td>
-										</tr>
-									)}
 								</React.Fragment>
 							))}
 					</tbody>
+					{/* <tfoot>
+						<tr>
+							{expandedRowIndex === index && (
+								<tr key={`${index}-edit`} className="border ">
+									<td colSpan="2" className="border pl-5 py-1">
+										<input
+											type="text"
+											value={val.name}
+											onChange={(e) => handleNameChange(e.target.value, index)}
+										/>
+									</td>
+									<td colSpan="2" className="border pl-5 py-1">
+										<input
+											type="text"
+											value={val.email}
+											onChange={(e) => handleEmailChange(e.target.value, index)}
+										/>
+									</td>
+									<td colSpan="2" className="border pl-5 py-1">
+										<input
+											type="text"
+											value={val.phone_number}
+											onChange={(e) =>
+												handlePhonenoChange(e.target.value, index)
+											}
+										/>
+									</td>
+									<td className="pl-8 justify-center py-2 flex">
+										<button
+											onClick={() => handleUpdate(val.id, index)}
+											className="bg-blue-500 text-white px-4 py-1 rounded"
+										>
+											Update
+										</button>
+										<button
+											onClick={() => handleDelete(val.email)}
+											className="bg-red-500 text-white px-4 py-1 rounded"
+										>
+											Delete
+										</button>
+									</td>
+								</tr>
+							)}
+						</tr>
+					</tfoot> */}
 				</table>
-				<div className="flex justify-end">
-					<ReactPaginate
-						previousLabel={'<'}
-						nextLabel={'>'}
-						pageCount={pageCount}
-						onPageChange={handlePageChange}
-						containerClassName={'pagination-container'}
-						previousLinkClassName={'previous-link'}
-						nextLinkClassName={'next-link'}
-						disabledClassName={'disabled'}
-						activeClassName={'active'}
-					/>
-				</div>
+
+				<ReactPaginate
+					previousLabel={'<'}
+					nextLabel={'>'}
+					pageCount={pageCount}
+					onPageChange={handlePageChange}
+					containerClassName={'pagination-container'}
+					previousLinkClassName={'previous-link'}
+					nextLinkClassName={'next-link'}
+					disabledClassName={'disabled'}
+					activeClassName={'active'}
+					className="flex flex-wrap mx-auto justify-center pt-6 pb-2 items-center"
+				/>
 			</div>
 		</div>
 	)

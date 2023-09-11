@@ -1,20 +1,21 @@
-import React, { useState } from 'react';
 import axios from 'axios';
-import { RiArrowDownSLine } from 'react-icons/ri';
-import './reg.css'
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import './reg.css';
 
 function AddUsers() {
     const [name, setname] = useState('');
+    const endPoint = process.env.REACT_APP_BASE_URL
     const [email, setEmail] = useState('');
     const [phone_number, setPhone_number] = useState('');
     const [department, setDepartment] = useState('');
     const [password, setPassword] = useState('');
     const [status, setStatus] = useState('');
+    const [added, setAdded] = useState("false")
     const [showDropdown, setShowDropdown] = useState(false);
     const [invalidNameError, setInvalidNameError] = useState(false); // New state for invalid name
     const [departments, setDepartments] = useState(['Sales', 'Technical', 'Marketing', 'Finance']); // Sample departments Sales, Technical, Marketing, and Finance.
-   
+
 
     const toggleDropdown = () => {
         setShowDropdown(!showDropdown);
@@ -45,7 +46,7 @@ function AddUsers() {
         }
 
         try {
-            const response = await axios.post('http://172.20.17.81:8000/core/register/', { //env file
+            const response = await axios.post(`http://${endPoint}:8000/core/register/`, {
                 name,
                 email,
                 phone_number,
@@ -54,7 +55,7 @@ function AddUsers() {
             });
 
             if (response.status === 200) {
-                setStatus('Adduser successful!');
+                setStatus('User Added Successfully!');
                 navigate('/home');
 
 
@@ -149,8 +150,8 @@ function AddUsers() {
         <div className='borderapp'>
             <div className="Appuser">
                 <div className="registration-container">
-                    <div className='add'>
-                        <h2>Add User</h2>
+                    <div className=''>
+                        <h1 className=' text-gray-700 text-2xl'>Add New User</h1>
                     </div>
                     <div className="input-container">
                         <input type='text' value={name} onChange={_hanldeOnChangeName} placeholder='Name*' />
@@ -188,37 +189,20 @@ function AddUsers() {
                         />
                     </div>
                     <div className="input-container">
-
-                        <input
-                            type="text"
-                            value={department}
-                            onChange={(e) => setDepartment(e.target.value)}
-                            placeholder="Department*" onFocus={toggleDropdown}
-                            onBlur={toggleDropdown}
-
-                        />
-                        <RiArrowDownSLine
-                            onClick={toggleDropdown}
-                            className='absolute right-2 top-5 transform -translate-y-1/2 text-gray-500 h-8 w-5 cursor-pointer'
-                        />
-                    </div>
-                    {showDropdown && (
-                        <div className='absolute z-10 bg-[#E5F1FD] border rounded-lg mt-3 py-2 w-60 divide-y-2 divide-blue-500 '>
+                        <select className="bg-blue-50 border border-blue-500  text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+                        >
+                            <option selected>Choose a department</option>
                             {departments.map((dept, index) => (
-                                <div
-                                    key={index}
-                                    className='cursor-pointer'
-                                    onClick={() => {
-                                        setDepartment(dept);
-                                        setShowDropdown(false);
-                                    }}
-                                >
-                                    {dept}
-                                </div>
+                                <option value={dept} onClick={() => {
+                                    setDepartment(dept)
+                                }} key={index}>{dept}</option>
                             ))}
-                        </div>
-                    )}
-                    <div className="input-container">
+
+
+                        </select>
+
+                    </div>
+                    <div className="input-container pt-4">
                         <input
                             type="text"
                             value={password}
@@ -226,7 +210,7 @@ function AddUsers() {
                             placeholder="password*"
                         />
                     </div>
-                    <button onClick={handleRegistration}>AddUsers</button>
+                    <button className="bg-blue-600 scale-100 active:scale-90 focus:scale-90 focus:bg-blue-500 text-white text-xl font-medium" onClick={handleRegistration}>Add User</button>
                     <p className="status">{status}</p>
                 </div>
             </div>

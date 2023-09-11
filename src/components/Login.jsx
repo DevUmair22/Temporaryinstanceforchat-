@@ -41,7 +41,7 @@ function Login() {
 	const handleLogin = async () => {
 		try {
 			const response = await axios.post(
-				'http://172.20.17.81:8000/core/login/',
+				'http://192.168.38.224:8000/core/login/',
 				{
 					//env file url
 					email,
@@ -56,7 +56,7 @@ function Login() {
 				setStatus('Login successful!')
 				localStorage.setItem('user-token', response.data.jwt)
 				// localStorage.removeItem('user-token', response.data.jwt);
-				if (user.isAdmin === true) {
+				if (user && user.isAdmin === true) {
 					setTimeout(() => {
 						navigate('/home', {
 							state: { admin: user },

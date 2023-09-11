@@ -1,8 +1,8 @@
-import { faCog, faHome, faUser } from '@fortawesome/free-solid-svg-icons'
+import { faHome } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useState } from 'react'
 import { AiOutlineSetting } from 'react-icons/ai'
-import { BsCalendarCheck } from 'react-icons/bs'
+import { BsCalendarCheck, BsPlusCircleFill } from 'react-icons/bs'
 import { MdSupervisorAccount } from 'react-icons/md'
 import { Link } from 'react-router-dom'
 import './sidbar.css'
@@ -32,21 +32,21 @@ export default function Sidebar() {
 					onMouseEnter={() => handleIconHover('user')}
 					onMouseLeave={() => handleIconHover(null)}
 				>
-					<Link className="flex items-center " to={'/login'}>
-						<FontAwesomeIcon icon={faUser} className="text-xl text-white" />
+					<Link className="flex items-center " to={'/user'}>
+						<BsPlusCircleFill className="text-xl text-white" />
 						<p className="text-xl text-white px-2  pt-1">Add User</p>
 					</Link>
 				</div>
-				<div
+				{/* <div
 					className="my-6 w-full flex flex-wrap items-start "
 					onMouseEnter={() => handleIconHover('cog')}
 					onMouseLeave={() => handleIconHover(null)}
 				>
-					<Link className="flex items-center " to={'/login'}>
+					<Link className="flex items-center " to={'/'}>
 						<FontAwesomeIcon icon={faCog} className="text-xl text-white" />
-						<p className="text-xl text-white px-2  pt-1">Home</p>
+						<p className="text-xl text-white px-2  pt-1">Manage</p>
 					</Link>
-				</div>
+				</div> */}
 				<div
 					className="my-6 w-full flex flex-wrap items-start "
 					onMouseEnter={() => handleIconHover('calendar')}
@@ -54,7 +54,7 @@ export default function Sidebar() {
 				>
 					<Link className="flex items-center " to={'/login'}>
 						<BsCalendarCheck className="text-xl text-white" />
-						<p className="text-xl text-white px-2  pt-1">Home</p>
+						<p className="text-xl text-white px-2  pt-1">Activity</p>
 					</Link>
 				</div>
 				<div
@@ -62,9 +62,9 @@ export default function Sidebar() {
 					onMouseEnter={() => handleIconHover('supervisor')}
 					onMouseLeave={() => handleIconHover(null)}
 				>
-					<Link className="flex items-center " to={'/login'}>
+					<Link className="flex items-center " to={'/'}>
 						<MdSupervisorAccount className="text-xl text-white" />
-						<p className="text-xl text-white px-2  pt-1">ALL Users</p>
+						<p className="text-xl text-white px-2  pt-1">Manage Users</p>
 					</Link>
 				</div>
 				<div

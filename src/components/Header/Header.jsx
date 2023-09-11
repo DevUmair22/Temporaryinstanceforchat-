@@ -55,12 +55,12 @@ export default function Header(props) {
 
 	return (
 		<div className="bg-white h-full w-full px-2 flex flex-wrap justify-around rounded-tr-xl shadow-xl border">
-			<div className="flex items-center w-2/4 py-6 justify-center">
-				<div className=" flex items-center w-full border-gray-300 border shadow-md border-1 rounded-md bg-gray-100 h-full w-3/4">
+			<div className="flex items-center w-2/4 py-6 px-16 justify-center">
+				<div className=" flex items-center w-full border-gray-300 border shadow-md border-1 rounded-md bg-gray-100 h-1/2 ">
 					<IoIosSearch className="text-sky-600 h-full text-center w-1/6 bg-gray-200 px-3 " />
 					<input
 						type="text"
-						className="border-none h-full text-gray-800 focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 bg-gray-50 pl-4 m-0 placeholder:text-gray-500 w-5/6 "
+						className="border-none h-full text-gray-800 focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 bg-gray-50 pl-4 m-0 placeholder:text-gray-500 w-full"
 						placeholder="Search"
 					/>
 				</div>
@@ -83,12 +83,13 @@ export default function Header(props) {
 							<div className="w-2/6 py-1 pl-2">
 								<img
 									className=" rounded-full  "
-									src={props.admin.picture}
+									// src=
+									// {props.admin.picture}
 									alt="profile"
 								/>
 							</div>
 							<span className="w-3/6 text-md font-medium pl-3">
-								{props.admin.name}
+								{/* {props.admin.name} */}
 							</span>
 							<div className="h-full w-1/6 py-3 ">
 								<RiArrowDownSLine
