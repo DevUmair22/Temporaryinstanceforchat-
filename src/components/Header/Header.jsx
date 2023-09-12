@@ -5,6 +5,7 @@ import {
 	RiMessage2Line,
 	RiNotification2Line,
 } from 'react-icons/ri'
+import { useNavigate } from 'react-router-dom' // Import useNavigate
 import './header.css'
 export default function Header(props) {
 	const [profilePicture, setProfilePicture] = useState(null)
@@ -16,6 +17,7 @@ export default function Header(props) {
 	const [logoutDropdown, setLogoutDropdown] = useState(false)
 
 	const [notificationDropdown, setNotificationDropdown] = useState(false)
+	const navigate = useNavigate()
 
 	const [showProfileDropdown, setShowProfileDropdown] = useState(false)
 	useEffect(() => {
@@ -45,6 +47,7 @@ export default function Header(props) {
 	}
 	const LogoutDropdown = () => {
 		setLogoutDropdown(!LogoutDropdown)
+		navigate('/logout')
 	}
 
 	const handleAdminNameChange = () => {
@@ -107,8 +110,8 @@ export default function Header(props) {
 						</div>
 					</div>
 					{showDropdown && (
-						<div className="absolute bg-white border rounded-lg p-4 text-md w-40 divide-y">
-							<div
+						<div className="absolute bg-white border rounded-lg p-4 text-md w-48 divide-y">
+							{/* <div
 								className="py-1 cursor-pointer"
 								onClick={toggleProfileDropdown}
 							>
@@ -125,8 +128,11 @@ export default function Header(props) {
 							</div>
 							<div className="py-1 cursor-pointer" onClick={SettingsDropdown}>
 								Settings
-							</div>
-							<div className=" py-1 cursor-pointer" onClick={LogoutDropdown}>
+							</div> */}
+							<div
+								className=" py-1 cursor-pointer hover:text-blue-600 w-full"
+								onClick={LogoutDropdown}
+							>
 								Logout
 							</div>
 							{showProfileDropdown && (

@@ -46,7 +46,7 @@ export default function AllUser() {
 		}
 	}
 	console.log('data fetched', data)
-	const sortedData = data.reverse()
+
 	const toggleOptions = (index) => {
 		setExpandedRowIndex(index)
 		setShowOptions(true)
@@ -167,8 +167,8 @@ export default function AllUser() {
 	//     }
 	// };
 	const handleUpdate = (user) => {
-		console.log('first==', user)
-		if (user.is_active) navigate('/update', { state: { user } })
+		console.log('first===', user)
+		navigate('/update', { state: { user } })
 	}
 	const onDepartmentChange = (user, value) => {
 		try {
@@ -309,7 +309,7 @@ export default function AllUser() {
 						</tr>
 					</thead>
 					<tbody className="text-gray-700">
-						{sortedData
+						{data
 							.slice(
 								currentPage * itemsPerPage,
 								(currentPage + 1) * itemsPerPage

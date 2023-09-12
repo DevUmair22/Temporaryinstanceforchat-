@@ -1,37 +1,30 @@
-
 import axios from 'axios'
-import React, { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import React, { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 
 
 const UpdateUser = (props) => {
-
-   const [currentUser, setCurrentUser] = useState('')
    const [status, setStatus] = useState('')
-   useEffect(() => {
-      const user = localStorage.getItem('user')
-
-      console.log('========>', JSON.parse(user))
-
-      console.log('first', user)
-
-      if (user) setCurrentUser(JSON.parse(user))
-   }, [status])
-
-
    const endPoint = process.env.REACT_APP_BASE_URL
    const [profilePicture, setProfilePicture] = useState(null)
    const navigate = useNavigate()
+   let userr = localStorage.getItem("user")
+   console.log("second", userr)
    // const location = useLocation()
-   // console.log('location', location)
+   // console.log('location', location.state)
    // const user = location.state.user
-   console.log(' userrrrr', currentUser.is_admin)
-   const [name, setName] = useState(currentUser.name)
-   const [email, setEmail] = useState(currentUser.email)
-   const [phone_number, setPhone_number] = useState(currentUser.phone_number)
-   const user = [name, email, phone_number]
+   // console.log(' userrrrr', user.is_admin)
+   console.log("aa", props)
+   const user = props.user;
+   console.log("firstuser", user)
+   let defName = user.name;
+   let defmail = user.email;
+   let defPhone = user.phone_number;
+   console.log("defName", defName)
+   const [name, setName] = useState(defName)
+   const [email, setEmail] = useState(defmail)
+   const [phone_number, setPhone_number] = useState(defPhone);
    const handleNameChange = (e) => {
-
       setName(e.target.value)
    }
 
@@ -44,7 +37,7 @@ const UpdateUser = (props) => {
 
    const handleUpdate = async () => {
       if (!name.match(/^[a-zA-Z]*$/)) {
-         setStatus('Name Should be Alphabet') && console.log(status)
+         setStatus('Name Should be Alphabet')
          return
       } else if (
          !email.match(
@@ -69,19 +62,19 @@ const UpdateUser = (props) => {
             email: email,
             phone_number: phone_number,
          }
-
+         console.log("UpdatedUser", updatedUser)
          let requestData = JSON.stringify(updatedUser)
 
          let config = {
             method: 'PUT',
-            url: `http://${endPoint}4:8000/core/user/${currentUser?.id}/`,
+            url: `http://${endPoint}:8000/core/user/${user.id}/`,
 
             headers: {
                'Content-Type': 'application/json',
             },
             data: requestData,
          }
-         console.log("url", config.url)
+
          axios
             .request(config)
             .then((response) => {
@@ -93,7 +86,12 @@ const UpdateUser = (props) => {
                console.log(error)
             })
 
+         // Send update request to backend with updated user data
+         // const response = await axios.put(`http://192.168.81.173:8000/core/user/${user.id}`, updatedUser);
+         // console.log(response)
 
+         // Handle response and update user in parent component's state
+         // Redirect back to the main page after successful update
       } catch (error) {
          console.error('Error updating user:', error)
       }
@@ -113,10 +111,10 @@ const UpdateUser = (props) => {
    }
 
    return (
-      <div className="flex flex-wrap justify-center bg-gray-200 w-full h-full items-center">
+      <div className="flex flex-wrap justify-center bg-gray-200 w-full h-screen items-center">
          <div className="mx-auto bg-white w-6/12 h-3/4 py-4 px-10 rounded-xl flex flex-col ">
             <div className="mx-auto items-center w-full justify-center flex flex-col">
-
+               {/* <i className="fas fa-user-circle fa-lg cursor-pointer rounded-full h-16 w-16 cursor-pointer"></i> */}
                <div
                   className="p-4 text-center "
                   onClick={handleProfilePictureClick}
@@ -146,7 +144,7 @@ const UpdateUser = (props) => {
                   <input
                      type="text"
                      className="p-2 h-full"
-                     value="umair"
+                     value={name}
                      onChange={handleNameChange}
                   />
                </div>
@@ -154,7 +152,7 @@ const UpdateUser = (props) => {
                   <input
                      type="email"
                      className="p-2 h-full"
-                     value={currentUser.email}
+                     value={email}
                      onChange={handleEmailChange}
                   />
                </div>
@@ -162,18 +160,27 @@ const UpdateUser = (props) => {
                   <input
                      type="phoneno"
                      className="p-2 h-full"
-                     value={currentUser.phone_number}
+                     value={phone_number}
                      onChange={handlePhonenoChange}
                   />
                </div>
                <div className="w-full flex">
-                  <button className="bg-blue-600 scale-100 active:scale-90 focus:scale-90 focus:bg-blue-500 text-white text-xl font-medium mx-auto" onClick={handleUpdate}>Update User</button>
-
+                  <button
+                     className="mx-auto text-lg font-bold w-5/12"
+                     onClick={handleUpdate}
+                  >
+                     Update User
+                  </button>
                </div>
                <div>
                   <p className=" text-center status">{status}</p>
                </div>
-
+               <Link to="/home">
+                  {' '}
+                  <div className="text-md font-bold p-2 text-blue-600  ">
+                     Back to Home
+                  </div>
+               </Link>
             </div>
          </div>
       </div>

@@ -2,11 +2,17 @@ import { faHome } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useEffect, useState } from 'react'
 import { MdSupervisorAccount } from 'react-icons/md'
-import { Link } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import './sidbar.css'
-
 export default function Sidebar() {
+	let newUser = localStorage.getItem('user')
+	console.log('new', newUser)
 	const [isAdmin, setIsAdmin] = useState(false)
+	const navigate = useNavigate()
+	const location = useLocation()
+	console.log('===location  side', location)
+	const user = location.state.user
+	console.log('userrr', user)
 	const simpleUser = [
 		{
 			title: 'DashBoard',
@@ -40,7 +46,11 @@ export default function Sidebar() {
 		console.log('isAdminFromLocalStorage:', isAdminFromLocalStorage)
 		console.log('isAdmin:', isAdminFromLocalStorage)
 	}, [])
-
+	const handleUpdate = () => {
+		let user = localStorage.getItem('user')
+		user = JSON.parse(user)
+		navigate('/update', { state: { user } })
+	}
 	return (
 		<div className=" bg-[#2E2E48] h-full w-full p-4 flex rounded-l-md items-center text-left">
 			<div className="flex flex-col flex-wrap items-left pl-6">

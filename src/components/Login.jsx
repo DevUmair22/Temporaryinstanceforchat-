@@ -17,7 +17,8 @@ function Login() {
 	const endPoint = process.env.REACT_APP_BASE_URL
 	const handleLogin = async () => {
 		try {
-			const response = await axios.post(`http://${endPoint}:8000/core/login/`, {
+			// http://${endPoint}:8000/core/login/
+			const response = await axios.post(`http://172.20.10.2:8000/core/login/`, {
 				//env file url
 				email,
 				password,
@@ -28,16 +29,10 @@ function Login() {
 				console.log('@@@@@@@@@@@', response.data)
 				setStatus('Login successful!')
 				localStorage.setItem('user-token', response.data.jwt)
-				localStorage.setItem('is_admin', response.data.is_adamin)
+				localStorage.setItem('is_admin', response.data.is_admin)
 
 				localStorage.setItem('user', JSON.stringify(user))
-				// if (user && user.isAdmin === true) {
-				// 	setTimeout(() => {
-				// 		navigate('/home', {
-				// 			state: { admin: user },
-				// 		})
-				// 	}, 500)
-				// } else {
+
 				setTimeout(() => {
 					window.location.href = '/Dashboard'
 				}, 500)
@@ -66,7 +61,8 @@ function Login() {
 			} else if (error.response && error.response.status === 400) {
 				setStatus(error?.response?.data?.detail)
 			} else {
-				setStatus('Invalid password or email.')
+				console.log('error', error.response)
+				setStatus(error.response.data.detail)
 			}
 		}
 	}
