@@ -5,6 +5,7 @@ import './App.css'
 import './passwordreset.css'
 
 function Passwordresetrequest() {
+	const endPoint = process.env.REACT_APP_BASE_URL
 	const navigate = useNavigate() // Use useNavigate
 
 	// const [popupVisible, setPopupVisible] = useState(false);
@@ -27,7 +28,7 @@ function Passwordresetrequest() {
 		}
 		try {
 			const response = await axios.post(
-				'http://172.20.10.2:8000/core/password/reset/request/',
+				`http://${endPoint}:8000/core/password/reset/request/`,
 				{
 					email,
 				}

@@ -6,6 +6,7 @@ import './resetpassword.css'
 
 function PasswordReset() {
 	// const { token } = useParams();
+	const endPoint = process.env.REACT_APP_BASE_URL
 	const [password, setPassword] = useState('')
 	const [token, setToken] = useState('')
 	const [confirmPassword, setConfirmPassword] = useState('')
@@ -29,7 +30,7 @@ function PasswordReset() {
 					console.log('first', password)
 
 					const response = await axios.post(
-						'http://172.20.10.2:8000/core/password/reset/',
+						`http://${endPoint}:8000/core/password/reset/`,
 						{
 							token,
 							password: password,

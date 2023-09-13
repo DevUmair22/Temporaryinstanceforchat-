@@ -7,9 +7,10 @@ import UpdateUser from './Updateuser'
 const UpdatePage = (props) => {
 	const location = useLocation()
 	console.log('===location', location)
-	// const user = location.state.user
-	let user = localStorage.getItem('user')
-	console.log('this', user)
+	const userUpdate = location.state.user
+	console.log('userUpdate', userUpdate)
+	// let user = localStorage.getItem('user')
+	// console.log('thisone', user)
 	// const user = location.state.user
 	// console.log(' userrrrr', user.is_admin)
 	// console.log(user)
@@ -25,7 +26,7 @@ const UpdatePage = (props) => {
 					</div>
 					<div className="flex h-5/6 flex-wrap">
 						<div className="w-10/12 h-full">
-							<UpdateUser user={user} />
+							<UpdateUser user={userUpdate} />
 						</div>
 						<div className="w-2/12 flex flex-wrap h-full">
 							<Rightblock />

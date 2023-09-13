@@ -40,7 +40,7 @@ export default function AllUser() {
 		try {
 			const response = await axios.get(`http://${endPoint}:8000/core/user/`)
 			setData(response.data.data)
-			console.log('firstttttt', data)
+			console.log('All user Data', data)
 		} catch (error) {
 			console.error('Error fetching data:', error)
 		}
@@ -167,7 +167,7 @@ export default function AllUser() {
 	//     }
 	// };
 	const handleUpdate = (user) => {
-		console.log('first===', user)
+		console.log('handler on all user page', user)
 		navigate('/update', { state: { user } })
 	}
 	const onDepartmentChange = (user, value) => {

@@ -1,6 +1,6 @@
 import axios from 'axios'
 import React, { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 
 const UpdateUser = (props) => {
@@ -8,19 +8,19 @@ const UpdateUser = (props) => {
    const endPoint = process.env.REACT_APP_BASE_URL
    const [profilePicture, setProfilePicture] = useState(null)
    const navigate = useNavigate()
-   let userr = localStorage.getItem("user")
-   console.log("second", userr)
+   // let userr = localStorage.getItem("user")
+   // console.log("second", userr)
    // const location = useLocation()
    // console.log('location', location.state)
    // const user = location.state.user
    // console.log(' userrrrr', user.is_admin)
-   console.log("aa", props)
+   // console.log("aa", props)
    const user = props.user;
-   console.log("firstuser", user)
+   console.log("User from Props", user)
    let defName = user.name;
    let defmail = user.email;
    let defPhone = user.phone_number;
-   console.log("defName", defName)
+
    const [name, setName] = useState(defName)
    const [email, setEmail] = useState(defmail)
    const [phone_number, setPhone_number] = useState(defPhone);
@@ -130,12 +130,12 @@ const UpdateUser = (props) => {
                      <img
                         src={profilePicture}
                         alt="Profile"
-                        className=" rounded-full h-20 w-20 cursor-pointer mx-4 "
+                        className=" rounded-full h-20 w-20 cursor-pointer mx-auto "
                      />
                   ) : (
                      <div className="fas fa-user-circle rounded-full h-24 w-24 text-8x1 cursor-pointer mx-2 "></div>
                   )}
-                  <h2 className="text-xl font-semibold ">Update User</h2>
+                  <h2 className="text-xl font-medium ">Update User</h2>
                </div>
             </div>
 
@@ -166,21 +166,17 @@ const UpdateUser = (props) => {
                </div>
                <div className="w-full flex">
                   <button
-                     className="mx-auto text-lg font-bold w-5/12"
+                     className="mx-auto text-lg font-medium w-1/2 "
                      onClick={handleUpdate}
                   >
-                     Update User
-                  </button>
+                     <p className=''>
+                        Update User
+                     </p></button>
                </div>
                <div>
                   <p className=" text-center status">{status}</p>
                </div>
-               <Link to="/home">
-                  {' '}
-                  <div className="text-md font-bold p-2 text-blue-600  ">
-                     Back to Home
-                  </div>
-               </Link>
+
             </div>
          </div>
       </div>

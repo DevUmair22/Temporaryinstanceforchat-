@@ -17,8 +17,7 @@ function Login() {
 	const endPoint = process.env.REACT_APP_BASE_URL
 	const handleLogin = async () => {
 		try {
-			// http://${endPoint}:8000/core/login/
-			const response = await axios.post(`http://172.20.10.2:8000/core/login/`, {
+			const response = await axios.post(`http://${endPoint}:8000/core/login/`, {
 				//env file url
 				email,
 				password,

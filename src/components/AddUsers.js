@@ -152,47 +152,40 @@ function AddUsers() {
 
     return (
         <div className='borderapp'>
-            <div className="Appuser">
-                <div className="registration-container">
-                    <div className=''>
+            <div className="flex w-full bg-gray-100 h-full rounded-lg items-center">
+                <div className="w-1/4 mx-auto bg-white flex-col py-8 px-14 h-4/6 rounded-xl justify-center text-center border shadow-xl">
+                    <div className='py-8'>
                         <h1 className=' text-gray-700 text-2xl'>Add New User</h1>
                     </div>
-                    <div className="input-container">
-                        <input type='text' value={name} onChange={_hanldeOnChangeName} placeholder='Name*' />
+                    <div className="input-container py-1">
+                        <input type='text'
+                            value={name}
+                            onChange={_hanldeOnChangeName}
+                            placeholder='Name*'
+                            className='w-full mx-auto' />
 
                     </div>
 
-                    {/* {invalidNameError && <p className="error-message">Name should contain only alphabetical characters.</p>} */}
-                    {/* <div className="input-container">
-                    <input type='text' value={lastname} onChange={(e) => setLastName(e.target.value)} placeholder='Last Name' />
-                </div> */}
-                    {/* <div className="input-container">
-                    <i className="fas fa-user"></i>
-                    <input
-                        type="text"
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                        placeholder="Username"
-                    />
-                </div> */}
-                    <div className="input-container">
+                    <div className="input-container py-1">
                         <input
                             type="email"
                             value={email}
                             onChange={_hanldeOnChangeEmail}
                             placeholder="Email* "
+                            className='w-full mx-auto'
 
                         />
                     </div>
-                    <div className="input-container">
+                    <div className="input-container py-1">
                         <input
                             type="phone"
                             value={phone_number}
                             onChange={_hanldeOnChangePhoneno}
                             placeholder="Contact no *"
+                            className='w-full mx-auto'
                         />
                     </div>
-                    <div className="input-container">
+                    <div className="input-container py-1">
                         <select className="bg-blue-50 border border-blue-500  text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
                             onChange={(e) => setDepartment(e.target.value)}
                         >
@@ -212,9 +205,10 @@ function AddUsers() {
                             value={password}
                             onChange={_hanldeOnChangePassword}
                             placeholder="password*"
+                            className='w-full mx-auto'
                         />
                     </div>
-                    <button className="bg-blue-600 scale-100 active:scale-90 focus:scale-90 focus:bg-blue-500 text-white text-xl font-medium" onClick={handleRegistration}>Add User</button>
+                    <div className="bg-blue-600 w-1/2 mx-auto mt-4 rounded-xl scale-100 active:scale-90 cursor-pointer px-8 py-4 active:bg-blue-500 text-white text-xl font-medium" onClick={handleRegistration}>Add User</div>
                     <p className="status">{status}</p>
                 </div>
             </div>

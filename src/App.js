@@ -1,18 +1,17 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Route, Routes } from 'react-router-dom';
-import Login from './components/Login';
 import AddUsers from './components/AddUsers';
-import Home from './pages/Home';
-import Dashboard from './pages/Dashboard';
-import Resetpassword from './components/Resetpassword';
+import Login from './components/Login';
 import Passwordresetrequest from './components/Passwordresetrequest';
-import Clientwebsite from './pages/Clientwebsite';
-import Chatboard from './pages/Chatboard';
-import UpdatePage from './pages/UpdatePage';
-import Logout from './pages/Logout';
-import Updateuser from './pages/Updateuser';
+import Resetpassword from './components/Resetpassword';
 import ProtectedRoute from './components/protectedRoute';
-import AllUser from './pages/AllUser';
+import Chatboard from './pages/Chatboard';
+import Clientwebsite from './pages/Clientwebsite';
+import Dashboard from './pages/Dashboard';
+import Home from './pages/Home';
+import Logout from './pages/Logout';
+import UpdatePage from './pages/UpdatePage';
+import Updateuser from './pages/Updateuser';
 
 export default function App() {
   // const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -33,7 +32,7 @@ export default function App() {
         <Route path="/user" element={<AddUsers />} />
         <Route path="/home" element={<Home />} />
         {/* <Route path="/Dashboard"element={localStorage.getItem("user-token") ? <Dashboard /> : <Login />} /> */}
-        <Route path='/Dashboard' element={
+        <Route path='/dashboard' element={
           <ProtectedRoute>
             <Dashboard />
           </ProtectedRoute>

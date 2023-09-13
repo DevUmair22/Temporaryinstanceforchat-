@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { CgProfile } from 'react-icons/cg'
 import { IoIosSearch } from 'react-icons/io'
 import {
 	RiArrowDownSLine,
@@ -8,7 +9,7 @@ import {
 import { useNavigate } from 'react-router-dom' // Import useNavigate
 import './header.css'
 export default function Header(props) {
-	const [profilePicture, setProfilePicture] = useState(null)
+	const [profilePicture, setProfilePicture] = useState('')
 	const [currentUser, setCurrentUser] = useState('User')
 	const [adminName, setAdminName] = useState('ijlal shah')
 	const [showDropdown, setShowDropdown] = useState(false)
@@ -28,6 +29,7 @@ export default function Header(props) {
 		console.log('first', user)
 
 		if (user) setCurrentUser(JSON.parse(user))
+		setProfilePicture(currentUser?.profilePicture)
 	}, [])
 	const toggleDropdown = () => {
 		setShowDropdown(!showDropdown)
@@ -85,23 +87,27 @@ export default function Header(props) {
 						<RiMessage2Line className="text-gray-500 h-6 w-6" />
 					</div>
 				</div>
-				<div className=" w-2/6">
-					<div className="relative  flex justify-end">
+				<div className=" w-2/6 ">
+					<div className=" flex justify-end">
 						<div
-							className="flex flex-wrap items-center cursor-pointer border rounded-md w-full bg-gray-50 shadow-md"
+							className="flex flex-wrap items-center justify-center cursor-pointer border rounded-md w-full bg-gray-50 shadow-md"
 							onClick={toggleDropdown}
 						>
-							<div className="w-2/6 py-1 pl-2">
-								<img
-									className=" rounded-full  "
-									src={currentUser?.profilePicture}
-									alt="profile"
-								/>
+							<div className="w-2/6 py-2 pl-2">
+								{currentUser.profilePicture ? (
+									<img
+										className=" rounded-full  "
+										src={profilePicture}
+										alt="profile"
+									/>
+								) : (
+									<CgProfile className="w-14 h-14" />
+								)}
 							</div>
 							<span className="w-3/6 text-md font-medium pl-3">
 								{currentUser?.name}
 							</span>
-							<div className="h-full w-1/6 py-3 ">
+							<div className="h-full w-1/6 py-6 ">
 								<RiArrowDownSLine
 									onClick={toggleDropdown}
 									className="text-gray-500 text-xl cursor-pointer"
