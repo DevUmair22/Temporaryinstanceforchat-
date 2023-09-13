@@ -5,6 +5,7 @@ import Login from './components/Login';
 import Passwordresetrequest from './components/Passwordresetrequest';
 import Resetpassword from './components/Resetpassword';
 import ProtectedRoute from './components/protectedRoute';
+import AgentView from './pages/AgentView/AgentView';
 import Chatboard from './pages/Chatboard';
 import Clientwebsite from './pages/Clientwebsite';
 import Dashboard from './pages/Dashboard';
@@ -40,7 +41,7 @@ export default function App() {
         <Route path="/password-reset-request" element={<Passwordresetrequest />} />
         <Route path="/reset-password/:token" element={<Resetpassword />} />
         <Route path="/" element={<Clientwebsite />} />
-
+        <Route path="/agent/dashboard" element={<AgentView />} />
         <Route path="/chatboard" element={<Chatboard />} />
         <Route path="/update" element={<UpdatePage />} />
         <Route path='/logout' element={< Logout />} />
